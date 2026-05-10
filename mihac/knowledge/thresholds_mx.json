@@ -1,0 +1,115 @@
+{
+  "_meta": {
+    "sistema": "MIHAC v2.0 (calibración México)",
+    "descripcion": "Umbrales de decisión calibrados al contexto del sistema financiero mexicano. NO reemplaza thresholds.json; se carga vía variable de entorno MIHAC_THRESHOLDS_FILE=thresholds_mx.json en futuras versiones del engine.",
+    "fuente_imor": "CNBV — Indicadores de microcréditos / Banxico — Reporte de Estabilidad Financiera, feb-2024",
+    "fuente_composicion": "CNBV-INEGI — Base de Datos de Inclusión Financiera, último corte 2025",
+    "imor_referencia": {
+      "microcredito_individual": 0.035,
+      "credito_personal": 0.049,
+      "hipotecario": 0.03,
+      "automotriz": 0.04
+    },
+    "composicion_mercado_porc": {
+      "Tarjeta de crédito": 53.89489203634563,
+      "Personal": 20.92704407265312,
+      "Nómina": 9.366641440784454,
+      "ABCD": 6.676048777011744,
+      "Grupal": 4.946500990495071,
+      "Hipotecario": 1.8879071090193926,
+      "Automotriz": 2.300965573690583
+    }
+  },
+  "dictamen": {
+    "APROBADO": {
+      "score_minimo": 70,
+      "etiqueta": "APROBADO",
+      "color_hex": "#28a745",
+      "descripcion": "Score mínimo bajado de 80→70: ENIF muestra que el motor v1.0 rechaza al 70 % de la población; con IMOR microcréditos 3.5 %, el umbral 70 alinea aprobación con riesgo real."
+    },
+    "REVISION_MANUAL": {
+      "score_minimo": 55,
+      "score_maximo": 69,
+      "etiqueta": "REVISION_MANUAL",
+      "color_hex": "#ffc107",
+      "descripcion": "Banda de revisión [55, 69]: 5 puntos más ancha que la original [60, 79] para absorber perfiles ENIF de bajo ingreso ($2K–4K MXN/mes) sin auto-rechazo."
+    },
+    "RECHAZADO": {
+      "score_maximo": 54,
+      "etiqueta": "RECHAZADO",
+      "color_hex": "#dc3545",
+      "descripcion": "Score < 55: rechazo automático. Antes era < 60. La rebaja de 5 puntos refleja un umbral menos agresivo coherente con la informalidad estructural mexicana."
+    }
+  },
+  "dti": {
+    "critico": 0.5,
+    "alto": 0.4,
+    "moderado": 0.3,
+    "bajo": 0.2,
+    "descripcion": {
+      "critico": "DTI > 0.50 (antes >0.40): tolerancia ajustada a la informalidad mexicana donde los hogares destinan rutinariamente >40 % del ingreso a deudas (formales + tandas + informales).",
+      "alto": "DTI 0.40–0.50: riesgo elevado.",
+      "moderado": "DTI 0.30–0.40: carga aceptable.",
+      "bajo": "DTI < 0.30: carga saludable, elegible a compensaciones."
+    }
+  },
+  "scoring": {
+    "score_base_inicial": 50,
+    "score_minimo": 0,
+    "score_maximo": 100,
+    "descripcion": "Sin cambios respecto a v1.0 — la calibración actúa solo sobre los puntos de corte, no sobre la estructura del scoring."
+  },
+  "monto_credito_modificador": {
+    "descripcion": "Ajustes recalibrados con IMOR por segmento. Microcréditos (≤$5K): IMOR 3.5 % → sin ajuste. Crédito personal grande (>$30K): IMOR 5.5 % → +15 puntos para compensar el riesgo histórico.",
+    "tramos": [
+      {
+        "rango": "500–5000",
+        "monto_min": 500,
+        "monto_max": 5000,
+        "ajuste_umbral": 0,
+        "imor_referencia": 0.035,
+        "nota": "Microcrédito grupal/individual."
+      },
+      {
+        "rango": "5001–15000",
+        "monto_min": 5001,
+        "monto_max": 15000,
+        "ajuste_umbral": 5,
+        "imor_referencia": 0.04,
+        "nota": "Mix micro + personal pequeño."
+      },
+      {
+        "rango": "15001–30000",
+        "monto_min": 15001,
+        "monto_max": 30000,
+        "ajuste_umbral": 10,
+        "imor_referencia": 0.049,
+        "nota": "Personal mediano (IMOR 4.9 %)."
+      },
+      {
+        "rango": "30001–50000",
+        "monto_min": 30001,
+        "monto_max": 50000,
+        "ajuste_umbral": 15,
+        "imor_referencia": 0.055,
+        "nota": "Personal premium, mayor exposición."
+      }
+    ]
+  },
+  "antiguedad_laboral": {
+    "riesgo_alto": 1,
+    "riesgo_moderado": 2,
+    "estable": 3,
+    "descripcion": {
+      "riesgo_alto": "<1 año (sin cambios): la informalidad MX ya se refleja en la derivación de antigüedad desde p3_10×p3_13 en el mapper.",
+      "riesgo_moderado": "1–2 años.",
+      "estable": ">3 años."
+    }
+  },
+  "edad": {
+    "riesgo_alto": 21,
+    "rango_optimo_min": 25,
+    "rango_optimo_max": 60,
+    "descripcion": "Sin cambios — la pirámide poblacional MX no justifica un ajuste estructural."
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "n_observable": 5248,
+  "n_features_a": 9,
+  "n_features_b": 8,
+  "scenario_a": [
+    {
+      "model": "Logistic Regression (L1)",
+      "accuracy_mean": 1.0,
+      "accuracy_std": 0.0,
+      "f1_mean": 1.0,
+      "f1_std": 0.0,
+      "auc_mean": 1.0,
+      "auc_std": 0.0,
+      "latency_ms": 6.999906299985014
+    },
+    {
+      "model": "Random Forest",
+      "accuracy_mean": 1.0,
+      "accuracy_std": 0.0,
+      "f1_mean": 1.0,
+      "f1_std": 0.0,
+      "auc_mean": 1.0,
+      "auc_std": 0.0,
+      "latency_ms": 76.75370139998267
+    },
+    {
+      "model": "Gradient Boosting",
+      "accuracy_mean": 1.0,
+      "accuracy_std": 0.0,
+      "f1_mean": 1.0,
+      "f1_std": 0.0,
+      "auc_mean": 1.0,
+      "auc_std": 0.0,
+      "latency_ms": 7.364356600010069
+    }
+  ],
+  "scenario_b": [
+    {
+      "model": "Logistic Regression (L1)",
+      "accuracy_mean": 0.7743903036905897,
+      "accuracy_std": 0.0003662041403171187,
+      "f1_mean": 0.8728522332572993,
+      "f1_std": 0.00023257093349828998,
+      "auc_mean": 0.5564761154062194,
+      "auc_std": 0.01413989359409851,
+      "latency_ms": 8.764631300000474
+    },
+    {
+      "model": "Random Forest",
+      "accuracy_mean": 0.7745809614598939,
+      "accuracy_std": 0.00040428384334442605,
+      "f1_mean": 0.8729460664952973,
+      "f1_std": 0.0002246422319590933,
+      "auc_mean": 0.5673675499285602,
+      "auc_std": 0.024669993554023478,
+      "latency_ms": 72.52301710000029
+    },
+    {
+      "model": "Gradient Boosting",
+      "accuracy_mean": 0.7747710744927142,
+      "accuracy_std": 0.0016362738082368491,
+      "f1_mean": 0.8727390358788707,
+      "f1_std": 0.0008741100689077623,
+      "auc_mean": 0.5655475188541543,
+      "auc_std": 0.03320639324378641,
+      "latency_ms": 8.151530200004345
+    }
+  ]
+}
