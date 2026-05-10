@@ -1,0 +1,190 @@
+/* ============================================================
+   MIHAC v2.0 — Estilos personalizados (complemento de Tailwind)
+   static/css/mihac_v2.css
+   ============================================================
+   Tailwind cubre layout y utilidades; este archivo añade:
+     - Animaciones específicas (score-reveal, fill, card-hover)
+     - Componentes con estética que Tailwind no expresa bien
+     - Variantes de modo oscuro custom (donde dark: no alcanza)
+   ============================================================ */
+
+:root {
+    --mihac-navy:    #0D1B2A;
+    --mihac-blue:    #1B4F8A;
+    --mihac-teal:    #0E7C7B;
+    --mihac-teal-lt: #17BEBB;
+    --mihac-success: #10B981;
+    --mihac-warning: #F59E0B;
+    --mihac-danger:  #EF4444;
+    --mihac-gray-50:  #F9FAFB;
+    --mihac-gray-100: #F3F4F6;
+    --mihac-gray-200: #E5E7EB;
+    --mihac-gray-700: #374151;
+    --mihac-gray-900: #111827;
+}
+
+/* ── Tipografía base ─────────────────────────────────────── */
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6,
+.font-display {
+    font-family: 'Lexend', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.font-mono-mihac {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* ── Animación: score-reveal ─────────────────────────────── */
+
+@keyframes score-reveal {
+    0%   { opacity: 0; transform: scale(0.5); }
+    60%  { opacity: 1; transform: scale(1.10); }
+    100% { opacity: 1; transform: scale(1.00); }
+}
+
+.score-reveal {
+    animation: score-reveal 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)
+               both;
+}
+
+/* ── Animación: fill (progress bar de score) ─────────────── */
+
+@keyframes fill {
+    from { width: 0%; }
+    to   { width: var(--score-percentage, 0%); }
+}
+
+.progress-fill {
+    animation: fill 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ── Card hover elevation ────────────────────────────────── */
+
+.card-hoverable {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hoverable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(13, 27, 42, 0.10);
+}
+
+/* ── Botón con feedback al click ─────────────────────────── */
+
+.btn-mihac:active {
+    transform: scale(0.97);
+}
+.btn-mihac:focus-visible {
+    outline: 2px solid var(--mihac-teal);
+    outline-offset: 2px;
+}
+
+/* ── Loading spinner ─────────────────────────────────────── */
+
+@keyframes spin-mihac {
+    to { transform: rotate(360deg); }
+}
+.spinner-mihac {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin-mihac 0.8s linear infinite;
+}
+
+/* ── Wizard step indicator ───────────────────────────────── */
+
+.wizard-step {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--mihac-gray-200);
+    transition: color 0.2s ease;
+}
+.wizard-step.active   { color: var(--mihac-blue);   }
+.wizard-step.completed { color: var(--mihac-success); }
+
+.wizard-step .dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid currentColor;
+    font-weight: 600;
+    font-family: 'Lexend', sans-serif;
+}
+.wizard-step.active .dot,
+.wizard-step.completed .dot {
+    background: currentColor;
+    color: #fff;
+}
+
+.wizard-line {
+    flex: 1;
+    height: 2px;
+    background: var(--mihac-gray-200);
+    transition: background-color 0.3s ease;
+}
+.wizard-line.active {
+    background: var(--mihac-blue);
+}
+
+/* ── Gradientes de header por dictamen ───────────────────── */
+
+.bg-grad-aprobado {
+    background: linear-gradient(135deg, #065F46 0%, #10B981 100%);
+}
+.bg-grad-rechazado {
+    background: linear-gradient(135deg, #991B1B 0%, #EF4444 100%);
+}
+.bg-grad-revision {
+    background: linear-gradient(135deg, #92400E 0%, #F59E0B 100%);
+}
+
+/* ── Badges de dictamen reutilizables ────────────────────── */
+
+.badge-mihac {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.badge-aprobado  { background: #D1FAE5; color: #065F46; }
+.badge-rechazado { background: #FEE2E2; color: #991B1B; }
+.badge-revision  { background: #FEF3C7; color: #92400E; }
+
+/* ── Modo oscuro (variables sobreescritas) ───────────────── */
+
+html.dark {
+    --mihac-gray-50:  #0F172A;
+    --mihac-gray-100: #1E293B;
+    --mihac-gray-200: #334155;
+    --mihac-gray-700: #CBD5E1;
+    --mihac-gray-900: #F1F5F9;
+}
+
+/* ── Utilities específicas que Tailwind no compone ───────── */
+
+.score-number {
+    font-family: 'Lexend', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+@media (min-width: 768px) {
+    .score-number { font-size: 7rem; }
+}

@@ -1,0 +1,365 @@
+{% extends "base_v2.html" %}
+{% block title %}Nueva evaluación{% endblock %}
+{% block page_title %}Nueva evaluación crediticia{% endblock %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto"
+     x-data="wizardData()"
+     x-init="init()">
+
+    <!-- ═══ Indicador de pasos ═══ -->
+    <div class="flex items-center justify-between mb-8">
+        <template x-for="(label, i) in steps" :key="i">
+            <div class="flex items-center flex-1 last:flex-none">
+                <div class="wizard-step"
+                     :class="{
+                       'active':    step === i + 1,
+                       'completed': step > i + 1
+                     }">
+                    <div class="dot" x-text="i + 1"></div>
+                    <span class="hidden md:inline text-sm font-medium"
+                          x-text="label"></span>
+                </div>
+                <div class="wizard-line mx-3"
+                     :class="step > i + 1 ? 'active' : ''"
+                     x-show="i < steps.length - 1"></div>
+            </div>
+        </template>
+    </div>
+
+    <form method="POST" action="{{ url_for('main.evaluate_v2') }}"
+          @submit.prevent="onSubmit"
+          class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6
+                 md:p-8 space-y-6">
+        {{ form.hidden_tag() if form else '' }}
+
+        <!-- ═══ PASO 1 — Datos personales ═══ -->
+        <section x-show="step === 1" x-transition>
+            <header class="mb-6">
+                <h2 class="font-display text-2xl font-semibold">
+                    Datos personales
+                </h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    Información básica del solicitante.
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Edad</label>
+                    <input type="number" name="edad" x-model.number="data.edad"
+                           min="18" max="99" required
+                           class="w-full px-3 py-2 rounded-lg border
+                                  border-gray-300 dark:border-gray-600
+                                  bg-white dark:bg-gray-700
+                                  focus:ring-2 focus:ring-mihac-blue
+                                  focus:border-transparent">
+                    <p x-show="errors.edad" x-text="errors.edad"
+                       class="text-xs text-mihac-danger mt-1"></p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">
+                        Dependientes económicos
+                    </label>
+                    <input type="number" name="numero_dependientes"
+                           x-model.number="data.numero_dependientes"
+                           min="0" max="10" required
+                           class="w-full px-3 py-2 rounded-lg border
+                                  border-gray-300 dark:border-gray-600
+                                  bg-white dark:bg-gray-700
+                                  focus:ring-2 focus:ring-mihac-blue
+                                  focus:border-transparent">
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-medium mb-1">
+                        Tipo de vivienda
+                    </label>
+                    <select name="tipo_vivienda" x-model="data.tipo_vivienda"
+                            required
+                            class="w-full px-3 py-2 rounded-lg border
+                                   border-gray-300 dark:border-gray-600
+                                   bg-white dark:bg-gray-700
+                                   focus:ring-2 focus:ring-mihac-blue
+                                   focus:border-transparent">
+                        <option value="">Selecciona…</option>
+                        <option value="Propia">Propia</option>
+                        <option value="Familiar">Familiar</option>
+                        <option value="Rentada">Rentada</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ PASO 2 — Información financiera ═══ -->
+        <section x-show="step === 2" x-transition>
+            <header class="mb-6">
+                <h2 class="font-display text-2xl font-semibold">
+                    Información financiera
+                </h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    Ingresos, deudas y monto solicitado.
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">
+                        Ingreso mensual (MXN)
+                    </label>
+                    <input type="number" name="ingreso_mensual"
+                           x-model.number="data.ingreso_mensual"
+                           step="100" min="1" required
+                           class="w-full px-3 py-2 rounded-lg border
+                                  border-gray-300 dark:border-gray-600
+                                  bg-white dark:bg-gray-700 font-mono
+                                  focus:ring-2 focus:ring-mihac-blue
+                                  focus:border-transparent">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">
+                        Deuda total actual (MXN)
+                    </label>
+                    <input type="number" name="total_deuda_actual"
+                           x-model.number="data.total_deuda_actual"
+                           step="100" min="0" required
+                           class="w-full px-3 py-2 rounded-lg border
+                                  border-gray-300 dark:border-gray-600
+                                  bg-white dark:bg-gray-700 font-mono
+                                  focus:ring-2 focus:ring-mihac-blue
+                                  focus:border-transparent">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">
+                        Historial crediticio
+                    </label>
+                    <select name="historial_crediticio"
+                            x-model.number="data.historial_crediticio"
+                            required
+                            class="w-full px-3 py-2 rounded-lg border
+                                   border-gray-300 dark:border-gray-600
+                                   bg-white dark:bg-gray-700
+                                   focus:ring-2 focus:ring-mihac-blue
+                                   focus:border-transparent">
+                        <option value="">Selecciona…</option>
+                        <option value="0">Malo</option>
+                        <option value="1">Neutro</option>
+                        <option value="2">Bueno</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">
+                        Monto solicitado (MXN)
+                    </label>
+                    <input type="number" name="monto_credito"
+                           x-model.number="data.monto_credito"
+                           step="500" min="500" max="50000" required
+                           class="w-full px-3 py-2 rounded-lg border
+                                  border-gray-300 dark:border-gray-600
+                                  bg-white dark:bg-gray-700 font-mono
+                                  focus:ring-2 focus:ring-mihac-blue
+                                  focus:border-transparent">
+                </div>
+            </div>
+
+            <!-- Mini-stat en vivo: DTI estimado -->
+            <div class="mt-6 p-4 rounded-lg bg-gray-50 dark:bg-gray-700/40
+                        border-l-4 border-mihac-teal-lt">
+                <div class="text-xs uppercase tracking-wide
+                            text-gray-500 dark:text-gray-400">
+                    DTI estimado en vivo
+                </div>
+                <div class="text-2xl font-display font-semibold mt-1"
+                     x-text="dtiPreview"></div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5"
+                     x-text="dtiHint"></div>
+            </div>
+        </section>
+
+        <!-- ═══ PASO 3 — Situación laboral ═══ -->
+        <section x-show="step === 3" x-transition>
+            <header class="mb-6">
+                <h2 class="font-display text-2xl font-semibold">
+                    Situación laboral y propósito
+                </h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    Antigüedad y destino del crédito.
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">
+                        Antigüedad laboral (años)
+                    </label>
+                    <input type="number" name="antiguedad_laboral"
+                           x-model.number="data.antiguedad_laboral"
+                           min="0" max="40" required
+                           class="w-full px-3 py-2 rounded-lg border
+                                  border-gray-300 dark:border-gray-600
+                                  bg-white dark:bg-gray-700
+                                  focus:ring-2 focus:ring-mihac-blue
+                                  focus:border-transparent">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-1">
+                        Propósito del crédito
+                    </label>
+                    <select name="proposito_credito"
+                            x-model="data.proposito_credito" required
+                            class="w-full px-3 py-2 rounded-lg border
+                                   border-gray-300 dark:border-gray-600
+                                   bg-white dark:bg-gray-700
+                                   focus:ring-2 focus:ring-mihac-blue
+                                   focus:border-transparent">
+                        <option value="">Selecciona…</option>
+                        <option value="Negocio">Negocio</option>
+                        <option value="Educacion">Educación</option>
+                        <option value="Consumo">Consumo</option>
+                        <option value="Emergencia">Emergencia</option>
+                        <option value="Vacaciones">Vacaciones</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="flex items-center gap-2 mt-2">
+                        <input type="checkbox" name="perfil_mx"
+                               x-model="data.perfil_mx"
+                               class="w-4 h-4 rounded text-mihac-blue
+                                      focus:ring-mihac-blue">
+                        <span class="text-sm">
+                            Aplicar calibración México
+                            (<code class="font-mono text-xs">thresholds_mx.json</code>)
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══ Botones de navegación ═══ -->
+        <footer class="flex items-center justify-between pt-4 border-t
+                       border-gray-200 dark:border-gray-700">
+            <button type="button" @click="prev()"
+                    x-show="step > 1"
+                    class="btn-mihac px-4 py-2 rounded-lg
+                           bg-gray-100 dark:bg-gray-700
+                           hover:bg-gray-200 dark:hover:bg-gray-600
+                           text-sm font-medium">
+                ← Anterior
+            </button>
+            <span x-show="step === 1"></span>
+
+            <button type="button" @click="next()"
+                    x-show="step < steps.length"
+                    class="btn-mihac px-6 py-2 rounded-lg
+                           bg-mihac-blue text-white text-sm font-semibold
+                           hover:bg-mihac-navy">
+                Siguiente →
+            </button>
+
+            <button type="submit"
+                    x-show="step === steps.length"
+                    :disabled="submitting"
+                    class="btn-mihac px-6 py-2 rounded-lg
+                           bg-mihac-success text-white text-sm font-semibold
+                           hover:opacity-90 inline-flex items-center gap-2">
+                <span x-show="!submitting">Evaluar solicitud</span>
+                <span x-show="submitting" class="inline-flex items-center gap-2">
+                    <span class="spinner-mihac"></span>
+                    Procesando…
+                </span>
+            </button>
+        </footer>
+    </form>
+</div>
+
+<script>
+function wizardData() {
+    return {
+        step: 1,
+        steps: ['Personal', 'Financiero', 'Laboral'],
+        submitting: false,
+        errors: {},
+        data: {
+            edad: null,
+            numero_dependientes: null,
+            tipo_vivienda: '',
+            ingreso_mensual: null,
+            total_deuda_actual: null,
+            historial_crediticio: null,
+            monto_credito: null,
+            antiguedad_laboral: null,
+            proposito_credito: '',
+            perfil_mx: false,
+        },
+
+        init() {},
+
+        get dtiPreview() {
+            const i = parseFloat(this.data.ingreso_mensual);
+            const d = parseFloat(this.data.total_deuda_actual);
+            if (!i || isNaN(i) || i <= 0 || isNaN(d)) return '—';
+            return (d / i * 100).toFixed(1) + '%';
+        },
+
+        get dtiHint() {
+            const i = parseFloat(this.data.ingreso_mensual);
+            const d = parseFloat(this.data.total_deuda_actual);
+            if (!i || i <= 0 || isNaN(d)) {
+                return 'Ingresa ingreso y deuda para ver el DTI.';
+            }
+            const r = d / i;
+            if (r < 0.25) return 'Bajo — carga saludable.';
+            if (r < 0.40) return 'Moderado — aceptable.';
+            if (r < 0.60) return 'Alto — riesgo elevado.';
+            return 'Crítico — veto automático activado.';
+        },
+
+        next() {
+            if (this.validateStep()) {
+                this.step = Math.min(this.step + 1, this.steps.length);
+            }
+        },
+
+        prev() {
+            this.step = Math.max(this.step - 1, 1);
+        },
+
+        validateStep() {
+            this.errors = {};
+            if (this.step === 1) {
+                if (!this.data.edad || this.data.edad < 18 || this.data.edad > 99) {
+                    this.errors.edad = 'Edad entre 18 y 99.';
+                    return false;
+                }
+                if (!this.data.tipo_vivienda) return false;
+                if (this.data.numero_dependientes === null
+                    || this.data.numero_dependientes < 0) return false;
+            }
+            if (this.step === 2) {
+                if (!this.data.ingreso_mensual
+                    || this.data.ingreso_mensual <= 0) return false;
+                if (this.data.total_deuda_actual === null
+                    || this.data.total_deuda_actual < 0) return false;
+                if (this.data.historial_crediticio === null
+                    || this.data.historial_crediticio === '') return false;
+                if (!this.data.monto_credito
+                    || this.data.monto_credito < 500) return false;
+            }
+            return true;
+        },
+
+        onSubmit(event) {
+            if (this.submitting) return;
+            this.submitting = true;
+            event.target.submit();
+        },
+    };
+}
+</script>
+{% endblock %}

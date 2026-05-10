@@ -17,9 +17,14 @@ from flask import (
     send_file,
 )
 
+import os
+from datetime import datetime, timedelta
+
 from app import db
 from app.forms import EvaluacionForm
 from app.models import Evaluacion
+from core.calibrated_engine import CalibratedEngine
+from core.chart_generator import build_charts_for_template
 from core.engine import InferenceEngine
 from reports.pdf_report import PDFReportGenerator
 
@@ -406,3 +411,201 @@ def descargar_pdf_cliente(eval_id):
             "danger",
         )
         return redirect(url_for("main.resultado", eval_id=eval_id))
+
+
+# ════════════════════════════════════════════════════════════
+# RUTAS V2 — Rediseño visual (Módulo F)
+# ════════════════════════════════════════════════════════════
+# Activación: variable de entorno MIHAC_V2_UI=true
+# Las rutas legacy (/, /resultado, /dashboard, /historial)
+# continúan funcionando con Bootstrap 5.3 sin cambios.
+# ════════════════════════════════════════════════════════════
+
+# Motor calibrado MX (singleton). Si la env-var no está
+# definida, se comporta idéntico al motor base.
+_engine_mx = CalibratedEngine(thresholds_file="thresholds_mx.json")
+
+
+def _v2_enabled() -> bool:
+    """¿Está activado el rediseño visual?"""
+    return os.environ.get("MIHAC_V2_UI", "").lower() in (
+        "1", "true", "yes", "on",
+    )
+
+
+@main.before_request
+def _block_v2_if_disabled():
+    """Devuelve 404 para rutas /*_v2 si la flag no está activa."""
+    if request.endpoint and request.endpoint.endswith("_v2"):
+        if not _v2_enabled():
+            from flask import abort
+            abort(404)
+
+
+@main.route("/dashboard_v2")
+def dashboard_v2():
+    """Dashboard v2 con cards + Chart.js."""
+    ventana_dias = 30
+    desde = datetime.utcnow() - timedelta(days=ventana_dias)
+    evals = Evaluacion.query.filter(
+        Evaluacion.timestamp >= desde
+    ).all()
+    total_all = Evaluacion.query.count()
+
+    n = len(evals)
+    apr = sum(1 for e in evals if e.dictamen == "APROBADO")
+    rec = sum(1 for e in evals if e.dictamen == "RECHAZADO")
+    rev = sum(1 for e in evals if e.dictamen == "REVISION_MANUAL")
+
+    stats = {
+        "n_evaluaciones": n,
+        "tasa_aprobacion": round(apr / n * 100, 2) if n else 0.0,
+        "score_promedio": (
+            round(sum(e.score_final for e in evals) / n, 2)
+            if n else 0.0
+        ),
+        "dti_promedio": (
+            round(sum(e.dti_ratio for e in evals) / n, 4)
+            if n else 0.0
+        ),
+        "distribucion": {
+            "APROBADO": apr,
+            "REVISION_MANUAL": rev,
+            "RECHAZADO": rec,
+        },
+    }
+
+    bucket: dict[str, int] = {}
+    for ev in evals:
+        key = (
+            ev.timestamp.strftime("%d/%m") if ev.timestamp else "?"
+        )
+        bucket[key] = bucket.get(key, 0) + 1
+    line_labels = sorted(
+        bucket.keys(),
+        key=lambda s: (
+            datetime.strptime(s, "%d/%m") if s != "?"
+            else datetime.min
+        ),
+    )
+    line_values = [bucket[k] for k in line_labels]
+
+    chart_data = {
+        "line_labels": line_labels,
+        "line_values": line_values,
+    }
+
+    ultimas = (
+        Evaluacion.query
+        .order_by(Evaluacion.id.desc())
+        .limit(10)
+        .all()
+    )
+
+    return render_template(
+        "dashboard_v2.html",
+        stats=stats,
+        ventana_dias=ventana_dias,
+        chart_data=chart_data,
+        ultimas=ultimas,
+        total_evaluaciones=total_all,
+    )
+
+
+@main.route("/evaluate_v2", methods=["GET", "POST"])
+def evaluate_v2():
+    """Wizard de 3 pasos con UI v2 + soporte calibración MX."""
+    if request.method == "POST":
+        try:
+            datos = {
+                "edad": int(request.form["edad"]),
+                "ingreso_mensual": float(
+                    request.form["ingreso_mensual"]
+                ),
+                "total_deuda_actual": float(
+                    request.form["total_deuda_actual"]
+                ),
+                "historial_crediticio": int(
+                    request.form["historial_crediticio"]
+                ),
+                "antiguedad_laboral": int(
+                    request.form["antiguedad_laboral"]
+                ),
+                "numero_dependientes": int(
+                    request.form["numero_dependientes"]
+                ),
+                "tipo_vivienda": request.form["tipo_vivienda"],
+                "proposito_credito": request.form[
+                    "proposito_credito"
+                ],
+                "monto_credito": float(
+                    request.form["monto_credito"]
+                ),
+            }
+        except (KeyError, ValueError) as e:
+            flash(f"Datos del formulario inválidos: {e}", "danger")
+            return redirect(url_for("main.evaluate_v2"))
+
+        usa_mx = bool(request.form.get("perfil_mx"))
+        engine = _engine_mx if usa_mx else _engine
+
+        resultado = engine.evaluate(datos)
+        if resultado.get("errores_validacion"):
+            for err in resultado["errores_validacion"]:
+                flash(err, "danger")
+            return redirect(url_for("main.evaluate_v2"))
+
+        ev = Evaluacion.from_inference_result(datos, resultado)
+        db.session.add(ev)
+        db.session.commit()
+        return redirect(
+            url_for("main.result_v2", eval_id=ev.id)
+        )
+
+    return render_template(
+        "evaluate_v2.html",
+        form=None,
+        total_evaluaciones=Evaluacion.query.count(),
+    )
+
+
+@main.route("/result_v2/<int:eval_id>")
+def result_v2(eval_id: int):
+    """Resultado v2 con gradiente + waterfall + radar Plotly."""
+    ev = db.session.get(Evaluacion, eval_id)
+    if ev is None:
+        from flask import abort
+        abort(404)
+
+    resultado_dict = {
+        "score_final": ev.score_final,
+        "sub_scores": ev.get_sub_scores_dict(),
+        "reglas_activadas": ev.get_reglas_list(),
+    }
+    charts = build_charts_for_template(resultado_dict)
+
+    return render_template(
+        "result_v2.html",
+        ev=ev,
+        charts=charts,
+        total_evaluaciones=Evaluacion.query.count(),
+    )
+
+
+@main.route("/historial_v2")
+def historial_v2():
+    """Historial v2 con filtros y badges."""
+    filtro_dictamen = request.args.get("dictamen") or ""
+    q = Evaluacion.query.order_by(Evaluacion.id.desc())
+    if filtro_dictamen:
+        q = q.filter(Evaluacion.dictamen == filtro_dictamen)
+
+    items = q.limit(100).all()
+    total = q.count()
+    return render_template(
+        "historial_v2.html",
+        items=items,
+        total=total,
+        filtro_dictamen=filtro_dictamen,
+        total_evaluaciones=Evaluacion.query.count(),
+    )

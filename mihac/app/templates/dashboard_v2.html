@@ -1,0 +1,244 @@
+{% extends "base_v2.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto space-y-6">
+
+    <!-- ═══ Header ═══ -->
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between
+                gap-4">
+        <div>
+            <h1 class="font-display text-2xl font-semibold">
+                Resumen operativo
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400">
+                Últimos {{ ventana_dias }} días — {{ "{:,}".format(stats.n_evaluaciones) }} evaluaciones procesadas
+            </p>
+        </div>
+        <a href="{{ url_for('main.evaluate_v2') }}"
+           class="btn-mihac inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                  bg-mihac-blue text-white text-sm font-semibold
+                  hover:bg-mihac-navy">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24" stroke-width="2">
+                <path d="M12 4v16m8-8H4"/>
+            </svg>
+            Nueva evaluación
+        </a>
+    </div>
+
+    <!-- ═══ 4 cards de métricas ═══ -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {% set cards = [
+            {
+                'label': 'Evaluaciones',
+                'value': '{:,}'.format(stats.n_evaluaciones),
+                'sub':   'últimos ' ~ ventana_dias ~ ' días',
+                'color': 'mihac-blue',
+                'icon':  'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'
+            },
+            {
+                'label': 'Tasa aprobación',
+                'value': '{:.1f}%'.format(stats.tasa_aprobacion),
+                'sub':   '{:,} aprobados'.format(stats.distribucion.get('APROBADO', 0)),
+                'color': 'mihac-success',
+                'icon':  'M5 13l4 4L19 7'
+            },
+            {
+                'label': 'Score promedio',
+                'value': '{:.0f}'.format(stats.score_promedio or 0),
+                'sub':   'sobre 100',
+                'color': 'mihac-teal',
+                'icon':  'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'
+            },
+            {
+                'label': 'DTI promedio',
+                'value': '{:.1%}'.format(stats.dti_promedio or 0),
+                'sub':   'razón deuda/ingreso',
+                'color': 'mihac-warning',
+                'icon':  'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'
+            },
+        ] %}
+        {% for c in cards %}
+        <div class="card-hoverable bg-white dark:bg-gray-800 rounded-xl
+                    shadow-sm p-5 border-l-4 border-{{ c.color }}">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs uppercase tracking-wide
+                             text-gray-500 dark:text-gray-400 font-medium">
+                    {{ c.label }}
+                </span>
+                <div class="w-10 h-10 rounded-lg bg-{{ c.color }}/10
+                            flex items-center justify-center text-{{ c.color }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                         viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                              d="{{ c.icon }}"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="text-3xl font-display font-bold">{{ c.value }}</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {{ c.sub }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- ═══ Charts ═══ -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl
+                    shadow-sm p-5">
+            <h3 class="font-display text-lg font-semibold mb-4">
+                Evaluaciones por día
+            </h3>
+            <canvas id="chartLine" style="max-height: 280px;"></canvas>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-5">
+            <h3 class="font-display text-lg font-semibold mb-4">
+                Distribución de dictámenes
+            </h3>
+            <canvas id="chartDonut" style="max-height: 280px;"></canvas>
+        </div>
+    </div>
+
+    <!-- ═══ Tabla de últimas evaluaciones ═══ -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+        <div class="px-5 py-4 border-b border-gray-200 dark:border-gray-700
+                    flex items-center justify-between">
+            <h3 class="font-display text-lg font-semibold">
+                Últimas evaluaciones
+            </h3>
+            <a href="{{ url_for('main.historial_v2') }}"
+               class="text-sm text-mihac-blue hover:underline">
+                Ver todo →
+            </a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 dark:bg-gray-700/50
+                              text-xs uppercase tracking-wide
+                              text-gray-500 dark:text-gray-400">
+                    <tr>
+                        <th class="px-4 py-3 text-left">ID</th>
+                        <th class="px-4 py-3 text-left">Fecha</th>
+                        <th class="px-4 py-3 text-left">Dictamen</th>
+                        <th class="px-4 py-3 text-right">Score</th>
+                        <th class="px-4 py-3 text-right">Monto</th>
+                        <th class="px-4 py-3 text-left">Propósito</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    {% for ev in ultimas %}
+                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                        <td class="px-4 py-3 font-mono">#{{ ev.id }}</td>
+                        <td class="px-4 py-3 text-gray-500">
+                            {{ ev.timestamp.strftime('%d/%m %H:%M') }}
+                        </td>
+                        <td class="px-4 py-3">
+                            <span class="badge-mihac
+                                {{ {
+                                    'APROBADO':        'badge-aprobado',
+                                    'RECHAZADO':       'badge-rechazado',
+                                    'REVISION_MANUAL': 'badge-revision',
+                                }[ev.dictamen] }}">
+                                {{ {
+                                    'APROBADO':        'Aprobado',
+                                    'RECHAZADO':       'Rechazado',
+                                    'REVISION_MANUAL': 'Revisión',
+                                }[ev.dictamen] }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono font-semibold">
+                            {{ ev.score_final }}
+                        </td>
+                        <td class="px-4 py-3 text-right font-mono">
+                            ${{ "{:,.0f}".format(ev.monto_credito) }}
+                        </td>
+                        <td class="px-4 py-3">{{ ev.proposito_credito }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="px-4 py-12 text-center
+                                                text-gray-400">
+                            No hay evaluaciones todavía.
+                            <a href="{{ url_for('main.evaluate_v2') }}"
+                               class="text-mihac-blue hover:underline">
+                                Crea la primera →
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+const isDark = document.documentElement.classList.contains('dark');
+const textColor = isDark ? '#E5E7EB' : '#111827';
+const gridColor = isDark ? '#374151' : '#E5E7EB';
+
+// ── Line chart: evaluaciones por día ──
+new Chart(document.getElementById('chartLine'), {
+    type: 'line',
+    data: {
+        labels: {{ chart_data.line_labels|tojson }},
+        datasets: [{
+            label: 'Evaluaciones',
+            data: {{ chart_data.line_values|tojson }},
+            borderColor: '#1B4F8A',
+            backgroundColor: 'rgba(27, 79, 138, 0.10)',
+            tension: 0.3,
+            fill: true,
+            borderWidth: 2,
+            pointRadius: 3,
+            pointBackgroundColor: '#1B4F8A',
+        }],
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { color: gridColor }, ticks: { color: textColor } },
+            y: {
+                beginAtZero: true,
+                grid: { color: gridColor },
+                ticks: { color: textColor, stepSize: 1 },
+            },
+        },
+    },
+});
+
+// ── Donut: distribución de dictámenes ──
+new Chart(document.getElementById('chartDonut'), {
+    type: 'doughnut',
+    data: {
+        labels: ['Aprobado', 'Revisión', 'Rechazado'],
+        datasets: [{
+            data: [
+                {{ stats.distribucion.get('APROBADO', 0) }},
+                {{ stats.distribucion.get('REVISION_MANUAL', 0) }},
+                {{ stats.distribucion.get('RECHAZADO', 0) }},
+            ],
+            backgroundColor: ['#10B981', '#F59E0B', '#EF4444'],
+            borderWidth: 0,
+        }],
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '65%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { color: textColor, padding: 12 },
+            },
+        },
+    },
+});
+</script>
+{% endblock %}
