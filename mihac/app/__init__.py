@@ -59,6 +59,10 @@ def create_app(config_name: str = "development") -> Flask:
     from app.routes import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    # API REST v2 (Módulo E)
+    from app.api.v2 import bp as api_v2_blueprint
+    app.register_blueprint(api_v2_blueprint)
+
     # ── Registrar error handlers ────────────────────────────
     _register_error_handlers(app)
 
