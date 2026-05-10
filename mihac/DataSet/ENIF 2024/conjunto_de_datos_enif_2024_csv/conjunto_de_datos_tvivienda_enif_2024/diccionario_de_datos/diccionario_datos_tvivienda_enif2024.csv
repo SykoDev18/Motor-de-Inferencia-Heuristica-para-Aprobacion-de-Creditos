@@ -1,0 +1,20 @@
+nombre_campo,longitud,tipo,nemónico,catálogo,rango_claves
+Llave de identificación de la vivienda,7,C,llaveviv,,0000101...1330319
+"Pregunta P0.1 En esta vivienda, ¿cuántos cuartos se usan para dormir, sin contar pasillos?",2,C,p0_1,p0_1,"01...08,99"
+Pregunta P0.2 ¿Cuántos cuartos tiene en total esta vivienda contando la cocina? (No cuente pasillos ni baños),2,C,p0_2,p0_2,"01...18,99"
+Pregunta P0.3 ¿Cuántos baños completos tiene esta vivienda con sanitario y regadera?,2,C,p0_3,p0_3,"00...08,99"
+Pregunta P0.4.1 ¿En esta vivienda tienen automóvil o camioneta?,1,C,p0_4_1,p0_4_1,"1,2"
+Pregunta P0.4.1A ¿Cuántos automóviles o camionetas tienen en esta vivienda?,1,C,p0_4_1a,,1...7
+Pregunta P0.4.2 ¿En esta vivienda tienen Internet?,1,C,p0_4_2,p0_4_2,"1,2"
+Pregunta P0.4.2A ¿La conexión a Internet es fija (tiene módem)?,1,C,p0_4_2a,p0_4_2a,"1,2"
+"Pregunta P1.1 ¿Cuántas personas viven normalmente en esta vivienda contando a bebés, niñas, niños, personas mayores y personas con discapacidad? Incluya también a las personas trabajadoras del hogar que duerman aquí y huéspedes que no tengan otro lugar donde vivir",2,C,p1_1,,01...16
+Pregunta P1.2 ¿Todas las personas que viven en esta vivienda comparten un mismo gasto para comer?,1,C,p1_2,p1_2,"1,2"
+"Pregunta P1.3 Entonces, ¿cuántos hogares o grupos de personas tienen gasto separado para comer contando el de usted?",2,C,p1_3,,02...05
+Número de folio,5,C,folio,,00001...13303
+Número de vivienda seleccionada,2,C,viv_sel,,01...22
+Entidad,2,C,ent,ent,01...32
+Tamaño de localidad,1,C,tloc,tloc,1...4
+Región,1,C,region,region,1...6
+Estrato de diseño,3,C,est_dis,,001...190
+Unidad primaria de muestreo de diseño,5,C,upm_dis,,00001...02172
+Factor de expansión a nivel vivienda,5,C,fac_viv,,135...33387

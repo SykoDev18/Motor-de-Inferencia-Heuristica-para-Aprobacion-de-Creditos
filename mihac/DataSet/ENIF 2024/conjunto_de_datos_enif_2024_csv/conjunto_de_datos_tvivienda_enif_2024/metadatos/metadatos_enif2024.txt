@@ -1,0 +1,45 @@
+Identifier: MEX-INEGI.ESD3.04-ENIF-2024
+
+Title: Encuesta Nacional de Inclusión Financiera 2024
+
+Description: El Instituto Nacional de Estadística y Geografía (INEGI) en colaboración con la Comisión Nacional Bancaria y de Valores (CNBV) llevan a cabo el quinto levantamiento de la Encuesta Nacional de Inclusión Financiera (ENIF) 2024, con el objetivo de continuar con la generación de información sobre el acceso y uso de los servicios financieros para evaluar el avance en inclusión financiera en México.
+
+Objetivo general 
+
+Generar información estadística e indicadores oficiales a nivel nacional que permitan a las autoridades financieras hacer diagnósticos, diseñar políticas públicas y establecer metas en materia de inclusión y educación financiera; asi­mismo incorporar cambios y actualizaciones requeridas para dar atención a nuevos requerimientos de información y consideraciones en la Política Nacional de Inclusión Financiera (PNIF).
+
+Objetivos específicos 
+
+- Generar información a nivel nacional, por tamaño de localidad y por sexo con respecto al acceso y uso de servicios financieros, entre los que destaca el porcentaje de la población con al menos un servicio financiero formal. 
+- Generar datos sobre el nivel de conocimiento de la población sobre temas financieros, tales como la inflación, cálculo de interés simple y compuesto, la portabilidad de nómina, el seguro de depósitos, entre otros. 
+- Identificar las necesidades de la población respecto del acceso y uso de los servicios financieros en los ámbi­tos nacional, urbano y rural, y por sexo. 
+- Proveer información respecto a la frecuencia y comportamiento de uso referentes a los productos de ahorro, crédito, seguro, ahorro para el retiro, y sus canales de distribución. 
+- Conocer las características sociodemográficas básicas (sexo, edad, nivel de escolaridad, condición de acti­vidad, nivel socioeconómico, hablantes indígenas, entre otras) de los usuarios de los productos y servicios financieros, así como aquellos que son beneficiarios de programas sociales, no son usuarios y quienes fueron usuarios, pero ya no lo son. 
+- Identificar las principales razones para no adquirir un producto o servicio financiero formal, y su baja utilización para aquellos que si lo tienen. También entender las razones de las personas que dejaron de tener algún pro­ducto financiero, así como el conocimiento de la portabilidad de los productos financieros. 
+- Conocer la incidencia de ciertos comportamientos financieros de la población adulta, tales como: llevar un registro de los gastos, elaborar un presupuesto, ahorrar, manejar adecuadamente un crédito, comparar pro­ductos antes de adquirirlos, realizar aportaciones voluntarias a las Administradoras de Fondos para el Retiro (Afores), utilizar medios de pago diferentes al efectivo, entre otros. 
+- Medir la incidencia de ciertos fraudes como la clonación y el robo de identidad. 
+- Contar con información para identificar la existencia de brechas de género con respecto a la toma de decisio­nes financieras sobre el dinero y los activos. 
+- Evaluar las actitudes financieras de las personas, tales como comparar productos antes de adquirirlos, cono­cer su comportamiento de pagos, saber cómo piensan solventar su vejez y cómo hacen frente a sus emergen­cias económicas. 
+- Contar con la información necesaria para obtener el indicador de alfabetización financiera propuesto por la Or­ganización para la Cooperación y el Desarrollo Económicos/Estrategias Nacionales de Educación Financiera (OCDE/INFE), el cual se compone de tres subíndices: conocimiento financiero, comportamiento financiero y actitudes financieras, así como el índice de bienestar financiero. 
+
+Modified: 2025-03-13
+
+Publisher: Instituto Nacional de Estadística y Geografía, INEGI
+
+Mbox: atencion.usuarios@inegi.org.mx
+
+License: https://www.inegi.org.mx/inegi/terminos.html
+
+DataDictionary: https://www.inegi.org.mx/rnm/index.php/catalog/1081/data-dictionary
+
+Keyword: "actividad", "ahorro", "aseguradora", "banca", "beneficio", "bienes", "compra", "crédito", "dinero", "divisa", "empresa", "financiación", "garantía", "gestión", "ingreso", "institución", "inversión", "patrimonio", "recursos", "remesas", "servicio", "seguros"
+
+ContactPoint: Mtro. J. Armando Aguiar Rodríguez, 800 111 4634 
+
+Temporal: 2024-06-24-2024-08-16
+
+Spatial: Estados Unidos Mexicanos
+
+AccrualPeriodicity: Trienalmente
+
+Distribution: https://www.inegi.org.mx/programas/enif/2024/

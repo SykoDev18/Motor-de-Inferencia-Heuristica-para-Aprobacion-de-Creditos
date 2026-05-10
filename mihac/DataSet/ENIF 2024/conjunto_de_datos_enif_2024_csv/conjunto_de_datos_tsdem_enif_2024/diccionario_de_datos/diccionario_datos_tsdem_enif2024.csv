@@ -1,0 +1,18 @@
+nombre_campo,longitud,tipo,nemónico,catálogo,rango_claves
+Llave de identificación de la tabla sociodemográfica,10,C,llavesde,,0000101101...1330319102
+Llave de identificación de la vivienda,7,C,llaveviv,,0000101...1330319
+Llave de identificación del hogar,8,C,llavehog,,00001011...13303191
+Pregunta P2.3 ¿Qué es (NOMBRE) de la (del) jefa(e) del hogar?,1,C,paren,paren,1...6
+Pregunta P2.4 ¿(NOMBRE) es hombre? ¿(NOMBRE) es mujer?,1,C,sexo,sexo,"1,2"
+Pregunta P2.5 ¿Cuántos años cumplidos tiene (NOMBRE)?,2,C,edad,edad,00...99
+Pregunta P2.6.1 ¿Hasta qué año o grado aprobó (NOMBRE) en la escuela? - NIVEL,2,C,niv,niv,"00...11,99"
+Pregunta P2.6.2 ¿Hasta qué año o grado aprobó (NOMBRE) en la escuela? - GRADO,1,C,gra,gra,0...9
+Número de folio,5,C,folio,,00001...13303
+Número de vivienda seleccionada,2,C,viv_sel,,01...22
+Número de hogar en la vivienda,1,C,hogar,,1...5
+Número de renglón de la persona,2,C,n_ren,,01...15
+Tamaño de localidad,1,C,tloc,tloc,1...4
+Región,1,C,region,region,1...6
+Estrato de diseño,3,C,est_dis,,001...190
+Unidad primaria de muestreo de diseño,5,C,upm_dis,,00001...02172
+Factor de expansión a nivel hogar,5,C,fac_hog,,135...33387

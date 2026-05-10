@@ -1,0 +1,10 @@
+nombre_campo,longitud,tipo,nemónico,catálogo,rango_claves
+Llave de identificación del hogar,8,C,llavehog,,00001011...13303191
+Llave de identificación de la vivienda,7,C,llaveviv,,0000101...1330319
+Pregunta P2.8 ¿Cuántas personas de su hogar tienen trabajo remunerado?,2,C,p2_8,,00...10
+Número de folio,5,C,folio,,00001...13303
+Número de vivienda seleccionada,2,C,viv_sel,,01...22
+Número de hogar en la vivienda,1,C,hogar,,1...5
+Estrato de diseño,3,C,est_dis,,001...190
+Unidad primaria de muestreo de diseño,5,C,upm_dis,,00001...02172
+Factor de expansión a nivel hogar,5,C,fac_hog,,135...33387

@@ -1,0 +1,442 @@
+cve_ent,cve_mun,descrip
+001,001,Aguascalientes
+001,005,Jesús María
+001,006,Pabellón de Arteaga
+001,009,Tepezalá
+001,011,San Francisco de los Romo
+002,001,Ensenada
+002,002,Mexicali
+002,004,Tijuana
+002,005,Playas de Rosarito
+002,006,San Quintín
+003,001,Comondú
+003,002,Mulegé
+003,003,La Paz
+003,008,Los Cabos
+004,001,Calkiní
+004,002,Campeche
+004,003,Carmen
+004,004,Champotón
+004,006,Hopelchén
+004,008,Tenabo
+004,010,Calakmul
+005,002,Acuña
+005,006,Castaños
+005,009,Francisco I. Madero
+005,010,Frontera
+005,017,Matamoros
+005,018,Monclova
+005,022,Nava
+005,024,Parras
+005,025,Piedras Negras
+005,027,Ramos Arizpe
+005,030,Saltillo
+005,032,San Juan de Sabinas
+005,033,San Pedro
+005,035,Torreón
+005,038,Zaragoza
+006,002,Colima
+006,003,Comala
+006,004,Coquimatlán
+006,007,Manzanillo
+006,009,Tecomán
+006,010,Villa de Álvarez
+007,005,Amatán
+007,019,Comitán de Domínguez
+007,021,Copainalá
+007,031,Chilón
+007,040,Huixtla
+007,041,La Independencia
+007,051,Mapastepec
+007,052,Las Margaritas
+007,059,Ocosingo
+007,065,Palenque
+007,068,Pichucalco
+007,074,Reforma
+007,078,San Cristóbal de las Casas
+007,089,Tapachula
+007,093,Tenejapa
+007,099,La Trinitaria
+007,101,Tuxtla Gutiérrez
+007,107,Villa Corzo
+007,108,Villaflores
+008,004,Aquiles Serdán
+008,005,Ascensión
+008,012,Carichí
+008,017,Cuauhtémoc
+008,019,Chihuahua
+008,021,Delicias
+008,031,Guerrero
+008,032,Hidalgo del Parral
+008,037,Juárez
+008,048,Namiquipa
+008,050,Nuevo Casas Grandes
+009,002,Azcapotzalco
+009,003,Coyoacán
+009,004,Cuajimalpa de Morelos
+009,005,Gustavo A. Madero
+009,006,Iztacalco
+009,007,Iztapalapa
+009,008,La Magdalena Contreras
+009,009,Milpa Alta
+009,010,Álvaro Obregón
+009,011,Tláhuac
+009,012,Tlalpan
+009,013,Xochimilco
+009,014,Benito Juárez
+009,015,Cuauhtémoc
+009,016,Miguel Hidalgo
+009,017,Venustiano Carranza
+010,003,Coneto De Comonfort
+010,005,Durango
+010,006,General Simón Bolívar
+010,007,Gómez Palacio
+010,012,Lerdo
+010,014,Mezquital
+010,015,Nazas
+010,023,Pueblo Nuevo
+010,032,Santiago Papasquiaro
+010,036,Tlahualilo
+010,039,Nuevo Ideal
+011,001,Abasolo
+011,005,Apaseo El Grande
+011,007,Celaya
+011,014,Dolores Hidalgo Cuna de la Independencia Nacional
+011,015,Guanajuato
+011,017,Irapuato
+011,020,León
+011,025,Purísima del Rincón
+011,027,Salamanca
+011,031,San Francisco del Rincón
+011,037,Silao de la Victoria
+011,041,Uriangato
+011,044,Villagrán
+012,001,Acapulco de Juárez
+012,012,Ayutla de los Libres
+012,028,Chilapa de Álvarez
+012,029,Chilpancingo de los Bravo
+012,035,Iguala de la Independencia
+012,036,Igualapa
+012,038,Zihuatanejo de Azueta
+012,046,Ometepec
+012,048,Petatlán
+012,051,Quechultenango
+012,054,San Miguel Totolapan
+012,075,Eduardo Neri
+013,003,Actopan
+013,013,Atotonilco de Tula
+013,016,Cuautepec de Hinojosa
+013,022,Epazoyucan
+013,023,Francisco I. Madero
+013,024,Huasca de Ocampo
+013,037,Metztitlán
+013,041,Mixquiahuala de Juárez
+013,048,Pachuca de Soto
+013,051,Mineral de la Reforma
+013,052,San Agustín Tlaxiaca
+013,057,Singuilucan
+013,058,Tasquillo
+013,059,Tecozautla
+013,069,Tizayuca
+013,074,Tlaxcoapan
+013,077,Tulancingo de Bravo
+013,080,Yahualica
+013,082,Zapotlán de Juárez
+013,083,Zempoala
+013,084,Zimapán
+014,014,Atoyac
+014,023,Zapotlán El Grande
+014,030,Chapala
+014,037,El Grullo
+014,039,Guadalajara
+014,044,Ixtlahuacán de los Membrillos
+014,067,Puerto Vallarta
+014,068,Villa Purificación
+014,070,El Salto
+014,097,Tlajomulco de Zúñiga
+014,098,San Pedro Tlaquepaque
+014,100,Tomatlán
+014,101,Tonalá
+014,120,Zapopan
+015,005,Almoloya de Juárez
+015,013,Atizapán de Zaragoza
+015,020,Coacalco de Berriozábal
+015,025,Chalco
+015,026,Chapa de Mota
+015,029,Chicoloapan
+015,031,Chimalhuacán
+015,033,Ecatepec de Morelos
+015,037,Huixquilucan
+015,039,Ixtapaluca
+015,043,Xalatlaco
+015,053,Melchor Ocampo
+015,054,Metepec
+015,057,Naucalpan de Juárez
+015,058,Nezahualcóyotl
+015,060,Nicolás Romero
+015,062,Ocoyoacac
+015,064,El Oro
+015,070,La Paz
+015,081,Tecámac
+015,099,Texcoco
+015,104,Tlalnepantla de Baz
+015,106,Toluca
+015,108,Tultepec
+015,118,Zinacantepec
+015,120,Zumpango
+015,121,Cuautitlán Izcalli
+015,122,Valle de Chalco Solidaridad
+016,006,Apatzingán
+016,024,Cherán
+016,028,Churintzio
+016,034,Hidalgo
+016,043,Jacona
+016,053,Morelia
+016,066,Pátzcuaro
+016,069,La Piedad
+016,071,Puruándiro
+016,073,Quiroga
+016,076,Sahuayo
+016,082,Tacámbaro
+016,084,Tangamandapio
+016,088,Tarímbaro
+016,095,Tocumbo
+016,102,Uruapan
+016,108,Zamora
+016,109,Zináparo
+017,004,Ayala
+017,006,Cuautla
+017,007,Cuernavaca
+017,008,Emiliano Zapata
+017,009,Huitzilac
+017,011,Jiutepec
+017,016,Ocuituco
+017,017,Puente de Ixtla
+017,018,Temixco
+017,020,Tepoztlán
+017,022,Tetela del Volcán
+017,025,Tlaquiltenango
+017,026,Tlayacapan
+017,028,Xochitepec
+017,029,Yautepec
+017,030,Yecapixtla
+017,031,Zacatepec
+018,004,Compostela
+018,008,Xalisco
+018,011,Ruíz
+018,012,San Blas
+018,015,Santiago Ixcuintla
+018,016,Tecuala
+018,017,Tepic
+018,019,La Yesca
+018,020,Bahía de Banderas
+019,006,Apodaca
+019,009,Cadereyta Jiménez
+019,010,El Carmen
+019,013,China
+019,018,García
+019,019,San Pedro Garza García
+019,021,General Escobedo
+019,026,Guadalupe
+019,031,Juárez
+019,033,Linares
+019,039,Monterrey
+019,041,Pesquería
+019,045,Salinas Victoria
+019,046,San Nicolás de los Garza
+019,048,Santa Catarina
+019,049,Santiago
+020,005,Asunción Ixtaltepec
+020,006,Asunción Nochixtlán
+020,041,Huautla de Jiménez
+020,067,Oaxaca de Juárez
+020,076,La Reforma
+020,079,Salina Cruz
+020,091,San Andrés Huayápam
+020,095,San Andrés Paxtlán
+020,107,San Antonio de la Cal
+020,184,San Juan Bautista Tuxtepec
+020,203,San Juan Lachigalla
+020,226,San Lorenzo Albarradas
+020,227,San Lorenzo Cacaotepec
+020,293,San Pablo Etla
+020,313,San Pedro Jocotipac
+020,385,Santa Cruz Xoxocotlán
+020,397,Heroica Ciudad de Tlaxiaco
+020,399,Santa María Atzompa
+020,439,Santa María Tonameca
+020,469,Santiago Juxtlahuaca
+020,489,Santiago Tetepec
+020,515,Santo Domingo Tehuantepec
+020,520,Santo Domingo Tonalá
+020,545,Teotitlán de Flores Magón
+020,565,Villa de Zaachila
+021,015,Amozoc
+021,019,Atlixco
+021,041,Cuautlancingo
+021,071,Huauchinango
+021,091,Juan Galindo
+021,114,Puebla
+021,119,San Andrés Cholula
+021,138,San Nicolás de los Ranchos
+021,140,San Pedro Cholula
+021,155,Tecomatlán
+021,156,Tehuacán
+021,169,Tepexi de Rodríguez
+021,172,Tetela de Ocampo
+021,180,Tlahuapan
+021,183,Tlaola
+021,194,Venustiano Carranza
+021,208,Zacatlán
+022,001,Amealco de Bonfil
+022,004,Cadereyta de Montes
+022,006,Corregidora
+022,011,El Marqués
+022,012,Pedro Escobedo
+022,014,Querétaro
+022,016,San Juan del Río
+022,017,Tequisquiapan
+023,001,Cozumel
+023,002,Felipe Carrillo Puerto
+023,004,Othón P. Blanco
+023,005,Benito Juárez
+023,007,Lázaro Cárdenas
+023,008,Solidaridad
+023,009,Tulum
+024,003,Aquismón
+024,011,Ciudad Fernández
+024,013,Ciudad Valles
+024,015,Charcas
+024,020,Matehuala
+024,021,Mexquitic de Carmona
+024,024,Rioverde
+024,028,San Luis Potosí
+024,032,Santa María del Río
+024,035,Soledad de Graciano Sánchez
+024,038,Tampacán
+024,039,Tampamolón Corona
+024,049,Villa de Ramos
+024,050,Villa de Reyes
+024,053,Axtla de Terrazas
+024,054,Xilitla
+025,001,Ahome
+025,005,Cosalá
+025,006,Culiacán
+025,009,Escuinapa
+025,011,Guasave
+025,012,Mazatlán
+025,014,Rosario
+025,015,Salvador Alvarado
+025,017,Sinaloa
+026,002,Agua Prieta
+026,017,Caborca
+026,018,Cajeme
+026,019,Cananea
+026,027,Fronteras
+026,029,Guaymas
+026,030,Hermosillo
+026,033,Huatabampo
+026,042,Navojoa
+026,043,Nogales
+026,055,San Luis Río Colorado
+026,070,General Plutarco Elías Calles
+027,001,Balancán
+027,002,Cárdenas
+027,004,Centro
+027,005,Comalcalco
+027,009,Jalapa
+027,013,Nacajuca
+027,014,Paraíso
+027,015,Tacotalpa
+028,002,Aldama
+028,003,Altamira
+028,009,Ciudad Madero
+028,011,Gómez Farías
+028,012,González
+028,022,Matamoros
+028,027,Nuevo Laredo
+028,032,Reynosa
+028,033,Río Bravo
+028,038,Tampico
+028,040,Valle Hermoso
+028,041,Victoria
+029,002,Apetatitlán de Antonio Carvajal
+029,005,Apizaco
+029,006,Calpulalpan
+029,008,Cuapiaxtla
+029,010,Chiautempan
+029,013,Huamantla
+029,015,Ixtacuixtla de Mariano Matamoros
+029,016,Ixtenco
+029,018,Contla de Juan Cuamatzi
+029,019,Tepetitla de Lardizábal
+029,023,Natívitas
+029,024,Panotla
+029,025,San Pablo del Monte
+029,026,Santa Cruz Tlaxcala
+029,027,Tenancingo
+029,028,Teolocholco
+029,031,Tetla de la Solidaridad
+029,032,Tetlatlahuca
+029,033,Tlaxcala
+029,034,Tlaxco
+029,039,Xaloztoc
+029,040,Xaltocan
+029,041,Papalotla de Xicohténcatl
+029,042,Xicohtzinco
+029,043,Yauhquemehcan
+029,044,Zacatelco
+029,048,La Magdalena Tlaltelulco
+029,051,San Jerónimo Zacualpan
+029,053,San Juan Huactzinco
+029,060,Santa Isabel Xiloxoxtla
+030,011,Alvarado
+030,013,Naranjos Amatlán
+030,014,Amatlán de los Reyes
+030,028,Boca del Río
+030,039,Coatzacoalcos
+030,044,Córdoba
+030,046,Cosautlán de Carvajal
+030,061,Las Choapas
+030,083,Ixhuatlán de Madero
+030,085,Ixtaczoquitlán
+030,087,Xalapa
+030,089,Jáltipan
+030,108,Minatitlán
+030,109,Misantla
+030,111,Moloacán
+030,118,Orizaba
+030,124,Papantla
+030,131,Poza Rica de Hidalgo
+030,138,Río Blanco
+030,142,San Juan Evangelista
+030,162,Tenampa
+030,177,Tlacolulan
+030,189,Tuxpan
+030,193,Veracruz
+030,201,Zongolica
+030,207,Tres Valles
+031,022,Chikindzonot
+031,023,Chocholá
+031,027,Dzidzantún
+031,037,Huhí
+031,038,Hunucmá
+031,041,Kanasín
+031,050,Mérida
+031,059,Progreso
+031,072,Suma
+031,079,Tekax
+031,096,Tizimín
+031,101,Umán
+032,005,Calera
+032,010,Fresnillo
+032,017,Guadalupe
+032,022,Juan Aldama
+032,023,Juchipila
+032,024,Loreto
+032,026,Mazapil
+032,037,Pánuco
+032,038,Pinos
+032,039,Río Grande
+032,051,Villa de Cos
+032,056,Zacatecas

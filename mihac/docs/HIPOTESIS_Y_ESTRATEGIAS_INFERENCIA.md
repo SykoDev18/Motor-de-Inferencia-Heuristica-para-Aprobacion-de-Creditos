@@ -249,7 +249,7 @@ Aunque MIHAC no usa backward chaining para inferir el dictamen, la estrategia se
 
 | Criterio                                     | Forward Chaining (MIHAC ✓)                                                                   | Backward Chaining (no implementado)                                                            |
 | :------------------------------------------- | :-------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------- |
-| **Orientación**                       | A los **datos** (*data-driven*)                                                      | A los**objetivos** (*goal-driven*)                                                     |
+| **Orientación**                       | A los**datos** (*data-driven*)                                                        | A los **objetivos** (*goal-driven*)                                                   |
 | **Punto de partida**                   | 9 variables de entrada del solicitante                                                        | Hipótesis: "¿APROBADO? ¿RECHAZADO?"                                                         |
 | **Dirección del razonamiento**        | Hechos → Reglas → Conclusión (*bottom-up*)                                               | Conclusión → Reglas → ¿Qué hechos necesito? (*top-down*)                                |
 | **Pregunta que responde**              | *"Dado este solicitante, ¿cuál es el dictamen?"*                                          | *"Para aprobar a este solicitante, ¿qué condiciones debe cumplir?"*                        |
