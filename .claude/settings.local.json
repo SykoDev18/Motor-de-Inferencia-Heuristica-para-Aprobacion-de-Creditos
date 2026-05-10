@@ -4,7 +4,10 @@
       "Bash(dir DataSet)",
       "Bash(.venv/Scripts/python.exe -c \"import pandas as pd; import openpyxl; print\\('pandas', pd.__version__\\); print\\('openpyxl', openpyxl.__version__\\)\")",
       "Bash(.venv/Scripts/python.exe -c \"import pandas as pd; print\\('pandas', pd.__version__\\)\")",
-      "Bash(.venv/Scripts/python.exe -c ' *)"
+      "Bash(.venv/Scripts/python.exe -c ' *)",
+      "Bash(../.venv/Scripts/python.exe data/mapper_enif.py)",
+      "Bash(PYTHONIOENCODING=utf-8 ../.venv/Scripts/python.exe data/mapper_enif.py)",
+      "Bash(PYTHONIOENCODING=utf-8 .venv/Scripts/python.exe mihac/data/mapper_enif.py)"
     ]
   }
 }
